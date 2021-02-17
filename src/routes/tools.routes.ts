@@ -37,7 +37,24 @@ toolsRouter.post('/tools', async (request, response) => {
     }
 })
 
-toolsRouter.delete('/tools', () => { })
+toolsRouter.delete('/tools/:id', async (request, response) => {
+    try {
+        const { id } = request.params
+
+        const numberId = Number(id)
+
+        const toolRepository = getCustomRepository(ToolRepository)
+
+        const tool = await toolRepository.findById(numberId)
+
+        await toolRepository.remove(tool)
+
+        return response.json(tool)
+    }
+    catch (err) {
+        return response.status(400).json({ error: err.message })
+    }
+})
 
 
 export default toolsRouter
