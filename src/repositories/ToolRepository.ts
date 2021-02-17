@@ -1,8 +1,9 @@
-import { Repository } from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 import Tool from '../models/Tool'
 
-class ToolsRepository extends Repository<Tool> {
+@EntityRepository(Tool)
+class ToolRepository extends Repository<Tool> {
 
 }
 
-export default ToolsRepository;
+export default ToolRepository;

@@ -1,6 +1,9 @@
 import 'reflect-metadata'
+
 import express from 'express'
 import toolsRouter from './routes/tools.routes'
+
+import './database'
 
 const app = express()
 

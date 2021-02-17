@@ -2,16 +2,16 @@ import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateCol
 
 @Entity('tools')
 class Tool {
-    @PrimaryGeneratedColumn('increment')
+    @PrimaryGeneratedColumn('rowid')
     id: number;
 
-    @Column('text')
+    @Column('varchar')
     title: string;
 
-    @Column('text')
+    @Column('varchar')
     link: string;
 
-    @Column('text')
+    @Column('varchar')
     description: string;
 
     @Column('text', { array: true })

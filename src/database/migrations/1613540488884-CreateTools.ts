@@ -9,25 +9,34 @@ export class CreateTools1613540488884 implements MigrationInterface {
                 columns: [
                     {
                         name: 'id',
-                        type: 'int',
+                        type: 'serial',
                         isPrimary: true,
-                        generationStrategy: 'increment',
                     },
                     {
                         name: 'title',
-                        type: 'text'
+                        type: 'varchar'
                     },
                     {
                         name: 'link',
-                        type: 'text'
+                        type: 'varchar'
                     },
                     {
                         name: 'description',
-                        type: 'text'
+                        type: 'varchar'
                     },
                     {
                         name: 'tags',
                         type: 'text[]'
+                    },
+                    {
+                        name: 'created_at',
+                        type: 'timestamp',
+                        default: 'now()',
+                    },
+                    {
+                        name: 'updated_at',
+                        type: 'timestamp',
+                        default: 'now()',
                     }
                 ]
             })

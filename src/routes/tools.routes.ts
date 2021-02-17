@@ -1,14 +1,14 @@
 import { Router } from 'express'
 import { getCustomRepository } from 'typeorm'
 
-import ToolsRepository from '../repositories/ToolRepository'
+import ToolRepository from '../repositories/ToolRepository'
 
 import CreateToolService from '../services/CreateToolService'
 
 const toolsRouter = Router()
 
 toolsRouter.get('/tools', async (request, response) => {
-    const toolRepository = getCustomRepository(ToolsRepository)
+    const toolRepository = getCustomRepository(ToolRepository)
 
     const tools = await toolRepository.find()
 
