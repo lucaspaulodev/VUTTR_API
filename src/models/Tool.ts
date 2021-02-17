@@ -5,16 +5,16 @@ class Tool {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column()
+    @Column('text')
     title: string;
 
-    @Column()
+    @Column('text')
     link: string;
 
-    @Column()
+    @Column('text')
     description: string;
 
-    @Column()
+    @Column('text', { array: true })
     tags: string[];
 
     @CreateDateColumn()
