@@ -6,7 +6,7 @@ const toolsRouter = Router();
 
 const toolController = new ToolController();
 
-toolsRouter.get("/tools", toolController.show);
+toolsRouter.get("/", toolController.show);
 toolsRouter.get("/tools", toolController.index);
 toolsRouter.post("/tools", toolController.create);
 toolsRouter.delete("/tools/:id", toolController.delete);

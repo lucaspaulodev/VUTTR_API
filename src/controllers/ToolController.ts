@@ -16,17 +16,16 @@ export default class ToolController {
   }
 
   async index(request: Request, response: Response) {
-    const tags = request.query.tags;
+    const { tag } = request.query;
 
-    //const toolRepository = getCustomRepository(ToolRepository);
+    const toolRepository = getCustomRepository(ToolRepository);
 
-    /*const tools = await toolRepository
+    const tools = await toolRepository
       .createQueryBuilder("tools")
-      .where(":tags = ANY(tools.tags)", { tags: tags })
+      .where(":tags = ANY (tools.tags)", { tags: tag })
       .getMany();
-    */
 
-    return response.json(tags);
+    return response.json(tools);
   }
 
   async create(request: Request, response: Response) {
@@ -42,7 +41,7 @@ export default class ToolController {
         tags,
       });
 
-      return response.json(tool);
+      return response.status(201).contentType("application/json");
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }
@@ -60,7 +59,7 @@ export default class ToolController {
 
       await toolRepository.remove(tool);
 
-      return response.json(tool);
+      return response.status(204);
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }
