@@ -1,61 +1,68 @@
-import { Router } from 'express'
-import { getCustomRepository } from 'typeorm'
+import { Router } from "express";
+import { getCustomRepository } from "typeorm";
 
-import ToolRepository from '../repositories/ToolRepository'
+import ToolRepository from "../repositories/ToolRepository";
 
-import CreateToolService from '../services/CreateToolService'
+import CreateToolService from "../services/CreateToolService";
 
-const toolsRouter = Router()
+const toolsRouter = Router();
 
-toolsRouter.get('/tools', async (request, response) => {
-    const toolRepository = getCustomRepository(ToolRepository)
+toolsRouter.get("/tools", async (request, response) => {
+  const toolRepository = getCustomRepository(ToolRepository);
 
-    const tools = await toolRepository.find()
+  const tools = await toolRepository.find();
 
-    return response.json(tools)
-})
+  return response.json(tools);
+});
 
-toolsRouter.get('/tools', () => { })
+toolsRouter.get("/tools/", async (request, response) => {
+  const tags = request.query.tags;
 
-toolsRouter.post('/tools', async (request, response) => {
-    try {
-        const { title, link, description, tags } = request.body
+  const toolRepository = getCustomRepository(ToolRepository);
 
-        const createTool = new CreateToolService()
+  const tools = await toolRepository
+    .createQueryBuilder("tools")
+    .where(":tags = ANY(tools.tags)", { tags: tags })
+    .getMany();
 
-        const tool = await createTool.execute({
-            title,
-            link,
-            description,
-            tags
-        })
+  return response.json(tools);
+});
 
-        return response.json(tool)
-    }
-    catch (err) {
-        return response.status(400).json({ error: err.message })
-    }
-})
+toolsRouter.post("/tools", async (request, response) => {
+  try {
+    const { title, link, description, tags } = request.body;
 
-toolsRouter.delete('/tools/:id', async (request, response) => {
-    try {
-        const { id } = request.params
+    const createTool = new CreateToolService();
 
-        const numberId = Number(id)
+    const tool = await createTool.execute({
+      title,
+      link,
+      description,
+      tags,
+    });
 
-        const toolRepository = getCustomRepository(ToolRepository)
+    return response.json(tool);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
 
-        const tool = await toolRepository.findById(numberId)
+toolsRouter.delete("/tools/:id", async (request, response) => {
+  try {
+    const { id } = request.params;
 
-        await toolRepository.remove(tool)
+    const numberId = Number(id);
 
-        return response.json(tool)
-    }
-    catch (err) {
-        return response.status(400).json({ error: err.message })
-    }
-})
+    const toolRepository = getCustomRepository(ToolRepository);
 
+    const tool = await toolRepository.findById(numberId);
 
-export default toolsRouter
+    await toolRepository.remove(tool);
 
+    return response.json(tool);
+  } catch (err) {
+    return response.status(400).json({ error: err.message });
+  }
+});
+
+export default toolsRouter;
