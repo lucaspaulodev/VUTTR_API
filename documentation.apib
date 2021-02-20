@@ -1,0 +1,38 @@
+FORMAT: 1A
+HOST: http://localhost:3000
+
+# Very Usefull Tools to Remember
+
+API para gerenciar ferramentas com seus respectivos nomes, links, descrição e tags.
+
+API to manage tools with their respective names, links, description and tags.
+
+# Group Ferramentas/Tools
+
+## Listar todas as ferramentas / List all tools [/]
+
+### Listar / List [GET] 
++ Response 200 (application/json)
+
+## Filtrar ferramentas por uma tag / Filter tools by tag [/tools?tag={tag}]
+
+### Filtrar ferramentas por uma tag / Filter tools by tag [GET]
++ Parameters
+    + tag (string) - Tag para filtrar/Tag to filter.
++ Response 200 (application/json)
+
+## Criar ferramenta / Create tool [/tools]
+
+### Criar ferramenta / Create tool [POST]
+    + title (string) - Nome da ferramenta/Tool's name.
+    + link (string) - Link para o site da ferramenta/Link to tool's website.
+    + description (string) - Descrição da ferramenta/Tool's description.
+    + tags (array[string]) - Array com tags da ferramenta/Array with tool's tags.
++ Response 201 (application/json)
+
+## Deletar ferramenta / Deletar tool [/tools/{id}]
+
+### Deletar ferramenta / Deletar tool [DELETE]
++ Parameters
+    + id (number) - Id da ferramenta a ser deletada/Id of tool to be deleted.
++ Response 204
