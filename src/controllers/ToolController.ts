@@ -34,7 +34,7 @@ export default class ToolController {
 
       const createTool = new CreateToolService();
 
-      const tool = await createTool.execute({
+      await createTool.execute({
         title,
         link,
         description,
